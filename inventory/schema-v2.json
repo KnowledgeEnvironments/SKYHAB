@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/KnowledgeEnvironments/SKYHAB/blob/master/inventory/schema-v2.json",
+  "title": "skyHAB inventory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "revision", "updated_at", "site", "segments", "devices", "pins"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "revision": {"type": "integer", "minimum": 1},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "site": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "pretty_name", "timezone"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "pretty_name": {"type": "string"},
+        "subtitle": {"type": "string"},
+        "timezone": {"type": "string", "minLength": 1}
+      }
+    },
+    "segments": {"type": "array", "items": {"$ref": "#/$defs/segment"}},
+    "devices": {"type": "array", "items": {"$ref": "#/$defs/device"}},
+    "relationships": {"type": "array", "items": {"$ref": "#/$defs/relationship"}},
+    "pins": {
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["resource", "order"],
+        "properties": {"resource": {"$ref": "#/$defs/id"}, "order": {"type": "integer", "minimum": 0}}
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._/-]*$"},
+    "segment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "cidr", "gateway", "trust", "comment"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "cidr": {"type": "string"},
+        "gateway": {"type": "string"}, "trust": {"type": "string"},
+        "comment": {"type": "string"}
+      }
+    },
+    "relationship": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "source", "target"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "kind": {"$ref": "#/$defs/id"},
+        "source": {"$ref": "#/$defs/id"}, "target": {"$ref": "#/$defs/id"},
+        "source_port": {"type": "string"}, "target_port": {"type": "string"},
+        "label": {"type": "string"}, "capacity_bps": {"type": "integer", "minimum": 0}
+      }
+    },
+    "device": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "class", "adapter", "pretty_name", "comment", "enabled", "location", "room", "groups", "roles", "lifecycle", "importance", "presentation_home", "segment", "labels", "endpoints", "credential_refs", "config", "component_overrides"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "class": {"$ref": "#/$defs/id"},
+        "adapter": {"$ref": "#/$defs/id"}, "pretty_name": {"type": "string"},
+        "comment": {"type": "string"}, "enabled": {"type": "boolean"},
+        "asset_tag": {"type": "string"}, "notes": {"type": "string"},
+        "photo": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "filename": {"type": "string"}, "mime": {"enum": ["image/jpeg", "image/png"]},
+            "updated_at": {"type": "string", "format": "date-time"}
+          }
+        },
+        "location": {"type": "string"}, "segment": {"type": "string"},
+        "room": {"type": "string"},
+        "groups": {"type": "array", "items": {"$ref": "#/$defs/id"}, "uniqueItems": true},
+        "roles": {"type": "array", "items": {"$ref": "#/$defs/id"}, "uniqueItems": true},
+        "lifecycle": {"enum": ["active", "reserved", "expected-offline", "development", "retired"]},
+        "importance": {"enum": ["critical", "important", "normal", "accessory"]},
+        "presentation_home": {"$ref": "#/$defs/id"},
+        "parent": {"type": "string"}, "labels": {"type": "object", "additionalProperties": {"type": "string"}},
+        "endpoints": {"type": "array", "items": {"type": "object"}},
+        "credential_refs": {"type": "object", "additionalProperties": {"type": "string"}},
+        "config": {"type": "object"}, "poll": {"type": "object"},
+        "component_overrides": {"type": "object"}
+      }
+    }
+  }
+}

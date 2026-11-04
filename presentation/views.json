@@ -1,0 +1,52 @@
+{
+  "schema": "skylab.presentation/1",
+  "revision": 1,
+  "views": [
+    {
+      "id": "overview", "title": "Overview", "icon": "house", "priority": 0,
+      "sections": [
+        {"id": "daylight", "title": "Daylight", "priority": 0, "layout": "home-instrument", "items": [{"query": {"class": "site-ephemeris"}, "renderer": "solar-wave-summary"}]},
+        {"id": "air-quality", "title": "Air Quality", "priority": 10, "layout": "home-instrument", "items": [{"query": {"class": "air-purifier"}, "renderer": "air-quality-summary"}]},
+        {"id": "power", "title": "Solar & Storage", "priority": 20, "layout": "home-instrument", "items": [{"query": {"group": "energy"}, "renderer": "energy-summary"}]},
+        {"id": "security", "title": "Security", "priority": 30, "layout": "home-instrument", "items": [{"query": {"class": "alarm-panel"}, "renderer": "alarm-summary"}]},
+        {"id": "infrastructure", "title": "Infrastructure", "priority": 40, "layout": "home-instrument", "items": [{"query": {"group": "core-infrastructure"}, "renderer": "infrastructure-summary"}]}
+      ]
+    },
+    {
+      "id": "habitat", "title": "Habitat", "icon": "habitat", "priority": 10,
+      "sections": [
+        {"id": "daylight", "title": "Daylight", "priority": 0, "layout": "instrument", "items": [{"query": {"class": "site-ephemeris"}, "renderer": "solar-horizon"}]},
+        {"id": "air-quality", "title": "Air Quality", "priority": 1, "layout": "instrument", "items": [{"query": {"class": "air-purifier"}, "renderer": "air-quality-panel"}]},
+        {"id": "accessories", "title": "Habitat Systems", "priority": 10, "layout": "grouped-list", "items": [{"query": {"presentation_home": "habitat", "lifecycle": "active", "exclude_classes": ["air-purifier", "site-ephemeris"]}, "renderer": "resource-row"}]}
+      ]
+    },
+    {"id": "security", "title": "Security", "icon": "security", "priority": 15, "sections": [{"id": "security", "title": "Alarm & Cameras", "layout": "grouped-list", "items": [{"query": {"class": "alarm-panel"}, "renderer": "alarm-panel"}, {"query": {"class": "camera", "lifecycle": "active"}, "renderer": "camera-panel"}]}]},
+    {"id": "lighting", "title": "Lighting", "icon": "light", "priority": 20, "sections": [{"id": "rooms", "title": "By Room", "layout": "grouped-list", "items": [{"query": {"presentation_home": "lighting", "lifecycle": "active"}, "renderer": "light-control"}]}]},
+    {"id": "climate", "title": "Climate", "icon": "climate", "priority": 30, "sections": [{"id": "thermostats", "title": "Thermostats", "layout": "grouped-list", "items": [{"query": {"class": "thermostat"}, "renderer": "thermostat-control"}]}]},
+    {
+      "id": "energy", "title": "Power", "icon": "energy", "priority": 40,
+      "sections": [
+        {"id": "flow", "title": "Power Flow", "layout": "hero", "items": [{"query": {"class": "battery-system"}, "renderer": "energy-flow"}, {"query": {"class": "solar-gateway"}, "renderer": "solar-trend"}]},
+        {"id": "protection", "title": "Power Protection", "layout": "list", "items": [{"query": {"class": "ups"}, "renderer": "ups-control"}]}
+      ]
+    },
+    {
+      "id": "network", "title": "Network", "icon": "network", "priority": 50,
+      "sections": [
+        {"id": "routers", "title": "Routers", "layout": "list", "items": [{"query": {"class": "router"}, "renderer": "router-panel"}]},
+        {"id": "switches", "title": "Switching & Access", "layout": "wrap", "items": [{"query": {"presentation_home": "network", "lifecycle": "active", "exclude_classes": ["router"]}, "renderer": "switch-port-map", "include_embedded": true}]}
+      ]
+    },
+    {
+      "id": "compute", "title": "Compute", "icon": "compute", "priority": 60,
+      "sections": [
+        {"id": "servers", "title": "Servers", "layout": "cluster", "items": [{"query": {"group": "servers", "lifecycle": ["active", "expected-offline"]}, "renderer": "cluster-tree"}]},
+        {"id": "virtual-machines", "title": "Virtual Machines", "layout": "cluster", "items": [{"query": {"group": "virtual-machines", "lifecycle": ["active", "expected-offline"]}, "renderer": "cluster-tree"}]},
+        {"id": "lab-systems", "title": "Lab Systems", "layout": "cluster", "items": [{"query": {"group": "lab-systems", "lifecycle": ["active", "expected-offline"]}, "renderer": "cluster-tree"}]}
+      ]
+    },
+    {"id": "storage", "title": "Storage", "icon": "storage", "priority": 70, "sections": [{"id": "arrays", "title": "Storage Arrays", "layout": "tree", "items": [{"query": {"class": "hyperconverged-host"}, "renderer": "storage-tree", "include_embedded": true}]}, {"id": "shares", "title": "File Shares", "layout": "list", "items": [{"query": {"class": "storage-share"}, "renderer": "storage-reference"}]}]},
+    {"id": "offline", "title": "Offline", "icon": "offline", "priority": 90, "sections": [{"id": "offline", "title": "Offline Resources", "layout": "compact-list", "items": [{"query": {"availability": "offline"}, "renderer": "offline-row"}]}]},
+    {"id": "inventory", "title": "Inventory", "icon": "inventory", "priority": 100, "sections": [{"id": "inventory", "title": "All Resources", "layout": "table", "items": [{"query": {}, "renderer": "inventory-row"}]}]}
+  ]
+}

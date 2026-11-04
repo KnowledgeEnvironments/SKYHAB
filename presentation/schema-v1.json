@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/KnowledgeEnvironments/SKYHAB/blob/master/presentation/schema-v1.json",
+  "title": "skyHAB presentation catalog",
+  "type": "object",
+  "required": ["schema", "revision", "views"],
+  "properties": {
+    "schema": {"const": "skylab.presentation/1"},
+    "revision": {"type": "integer", "minimum": 1},
+    "views": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "icon", "priority", "sections"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+          "title": {"type": "string"},
+          "icon": {"type": "string"},
+          "priority": {"type": "integer"},
+          "sections": {"type": "array"}
+        }
+      }
+    }
+  }
+}

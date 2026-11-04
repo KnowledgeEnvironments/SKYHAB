@@ -1,0 +1,29 @@
+build/
+.build/
+.DS_Store
+**/xcuserdata/
+.bundle/
+vendor/
+ios/Pods/
+var/
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+inventory/*.tmp
+inventory/backups/
+# Production configuration is external. This legacy local path remains ignored
+# to prevent an operator from accidentally recommitting a private inventory.
+inventory/inventory.json
+presentation/views.local.json
+*.token
+.env
+dist/skyHAB/*.app/
+# Contains retired private tooling, including its historical credential store.
+# It is local reference material only and must never enter version control.
+reference-only-legacy/
+# Private site material retained locally while the public repository is prepared.
+# Never commit this directory or copy it into release archives.
+.private/
+# Local third-party configuration utilities and their credential-bearing state.
+config-tools/opendyson/bin/
+config-tools/opendyson/private/

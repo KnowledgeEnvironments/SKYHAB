@@ -1,0 +1,103 @@
+{
+  "schema_version": 2,
+  "revision": 1,
+  "updated_at": "2026-10-31T00:00:00Z",
+  "site": {
+    "id": "aurora-house",
+    "pretty_name": "Aurora House",
+    "subtitle": "Habitat & systems laboratory",
+    "timezone": "America/Los_Angeles"
+  },
+  "segments": [
+    {"id": "home", "cidr": "192.0.2.0/24", "gateway": "192.0.2.1", "trust": "trusted", "comment": "RFC 5737 documentation network"},
+    {"id": "lab", "cidr": "198.51.100.0/24", "gateway": "198.51.100.1", "trust": "trusted", "comment": "RFC 5737 documentation network"}
+  ],
+  "devices": [
+    {
+      "id": "air-studio", "class": "air-purifier", "adapter": "demo.static", "pretty_name": "Studio Air", "comment": "Synthetic air-quality instrument", "enabled": true,
+      "location": "Aurora House", "room": "Studio", "groups": ["core-habitat"], "roles": ["air-quality"], "lifecycle": "active", "importance": "critical", "presentation_home": "habitat", "segment": "home", "labels": {}, "endpoints": [{"host": "192.0.2.31"}], "credential_refs": {},
+      "config": {"observations": [{"metric": "power", "value": true}, {"metric": "fan_speed", "value": 4}, {"metric": "temperature", "value": 21.7, "unit": "degC"}, {"metric": "humidity", "value": 42, "unit": "%"}, {"metric": "pm2_5", "value": 3, "unit": "µg/m³"}, {"metric": "pm10", "value": 7, "unit": "µg/m³"}, {"metric": "voc_index", "value": 2, "unit": "index"}, {"metric": "no2_index", "value": 1, "unit": "index"}, {"metric": "formaldehyde", "value": 4, "unit": "µg/m³"}]}, "component_overrides": {}
+    },
+    {
+      "id": "alarm", "class": "alarm-panel", "adapter": "demo.static", "pretty_name": "Security Panel", "comment": "Synthetic alarm state", "enabled": true,
+      "location": "Utility closet", "room": "Entry", "groups": ["core-habitat"], "roles": ["security"], "lifecycle": "active", "importance": "critical", "presentation_home": "security", "segment": "home", "labels": {}, "endpoints": [{"host": "192.0.2.40"}], "credential_refs": {},
+      "config": {"observations": [{"metric": "partition_mode", "value": "Ready"}, {"metric": "armed", "value": false}, {"metric": "ready", "value": true}, {"metric": "alarm", "value": false}, {"metric": "fire", "value": false}, {"metric": "trouble", "value": false}, {"metric": "open_zone_count", "value": 0}, {"metric": "keypad_line1", "value": "AURORA HOUSE"}, {"metric": "keypad_line2", "value": "READY TO ARM"}]}, "component_overrides": {}
+    },
+    {
+      "id": "atlas", "class": "hyperconverged-host", "adapter": "demo.static", "pretty_name": "Atlas", "comment": "Compute and storage host", "enabled": true,
+      "location": "Lab rack", "room": "Lab", "groups": ["core-infrastructure", "servers"], "roles": ["compute", "storage"], "lifecycle": "active", "importance": "critical", "presentation_home": "compute", "segment": "lab", "labels": {}, "endpoints": [{"host": "198.51.100.10"}], "credential_refs": {},
+      "config": {"observations": [{"metric": "cpu_fraction", "value": 0.27, "unit": "ratio"}, {"metric": "memory_used", "value": 51539607552, "unit": "B"}, {"metric": "memory_capacity", "value": 137438953472, "unit": "B"}, {"resource": "atlas/pool/main", "metric": "name", "value": "Main Array"}, {"resource": "atlas/pool/main", "metric": "health", "value": "ONLINE"}, {"resource": "atlas/pool/main", "metric": "size", "value": 52776558133248, "unit": "B"}, {"resource": "atlas/pool/main", "metric": "allocated", "value": 19791209299968, "unit": "B"}, {"resource": "atlas/pool/main", "metric": "free", "value": 32985348833280, "unit": "B"}, {"resource": "atlas/pool/main", "metric": "used_percent", "value": 37.5, "unit": "%"}, {"resource": "atlas/pool/main/vdev/mirror-0", "metric": "name", "value": "Mirror 0"}, {"resource": "atlas/pool/main/vdev/mirror-0", "metric": "health", "value": "ONLINE"}, {"resource": "atlas/pool/main/disk/nvme-a", "metric": "name", "value": "NVMe A"}, {"resource": "atlas/pool/main/disk/nvme-a", "metric": "health", "value": "ONLINE"}, {"resource": "atlas/pool/main/disk/nvme-b", "metric": "name", "value": "NVMe B"}, {"resource": "atlas/pool/main/disk/nvme-b", "metric": "health", "value": "ONLINE"}]}, "component_overrides": {}
+    },
+    {
+      "id": "battery", "class": "battery-system", "adapter": "demo.static", "pretty_name": "House Battery", "comment": "Synthetic whole-home battery", "enabled": true,
+      "location": "Utility room", "room": "Utility", "groups": ["core-habitat", "core-power", "energy"], "roles": ["battery"], "lifecycle": "active", "importance": "critical", "presentation_home": "energy", "segment": "home", "labels": {}, "endpoints": [{"host": "192.0.2.20"}], "credential_refs": {},
+      "config": {"observations": [{"metric": "state_of_charge", "value": 74, "unit": "%"}, {"metric": "energy_remaining", "value": 10000, "unit": "Wh"}, {"metric": "solar_power", "value": 4820, "unit": "W"}, {"metric": "load_power", "value": 2180, "unit": "W"}, {"metric": "battery_power", "value": 1460, "unit": "W"}, {"metric": "grid_power", "value": -1180, "unit": "W"}, {"metric": "grid_connected", "value": true}, {"metric": "backup_reserve", "value": 25, "unit": "%"}]}, "component_overrides": {}
+    },
+    {
+      "id": "camera-garden", "class": "camera", "adapter": "demo.static", "pretty_name": "Garden Camera", "comment": "Synthetic camera resource; no media endpoint", "enabled": true,
+      "location": "Garden", "room": "Exterior", "groups": ["core-habitat"], "roles": ["security"], "lifecycle": "active", "importance": "important", "presentation_home": "security", "segment": "home", "labels": {}, "endpoints": [{"host": "192.0.2.41"}], "credential_refs": {}, "config": {}, "component_overrides": {}
+    },
+    {
+      "id": "climate-main", "class": "thermostat", "adapter": "demo.static", "pretty_name": "Main Climate", "comment": "Synthetic HVAC zone", "enabled": true,
+      "location": "Main floor", "room": "Living Room", "groups": ["core-habitat"], "roles": ["climate"], "lifecycle": "active", "importance": "critical", "presentation_home": "climate", "segment": "home", "labels": {}, "endpoints": [{"host": "192.0.2.30"}], "credential_refs": {},
+      "config": {"observations": [{"metric": "temperature", "value": 21.5, "unit": "degC"}, {"metric": "heat_setpoint", "value": 20, "unit": "degC"}, {"metric": "cool_setpoint", "value": 24, "unit": "degC"}, {"metric": "mode", "value": "auto"}, {"metric": "fan_mode", "value": "auto"}, {"metric": "fan_state", "value": "idle"}, {"metric": "humidity", "value": 45, "unit": "%"}]}, "component_overrides": {}
+    },
+    {
+      "id": "core-router", "class": "router", "adapter": "demo.static", "pretty_name": "Gateway", "comment": "Core router", "enabled": true,
+      "location": "Network cabinet", "room": "Utility", "groups": ["core-networking", "core-infrastructure"], "roles": ["gateway"], "lifecycle": "active", "importance": "critical", "presentation_home": "network", "segment": "home", "labels": {}, "endpoints": [{"host": "192.0.2.1"}], "credential_refs": {},
+      "config": {"observations": [{"metric": "uptime", "value": 1843200, "unit": "s"}, {"metric": "cpu_load", "value": 12, "unit": "%"}, {"resource": "core-router/port/wan", "metric": "name", "value": "WAN"}, {"resource": "core-router/port/wan", "metric": "link", "value": true}, {"resource": "core-router/port/wan", "metric": "line_rate", "value": 2500000000, "unit": "bit/s"}, {"resource": "core-router/port/wan", "metric": "rx_rate", "value": 184000000, "unit": "bit/s"}, {"resource": "core-router/port/wan", "metric": "tx_rate", "value": 32000000, "unit": "bit/s"}, {"resource": "core-router/port/lan", "metric": "name", "value": "LAN"}, {"resource": "core-router/port/lan", "metric": "link", "value": true}, {"resource": "core-router/port/lan", "metric": "line_rate", "value": 10000000000, "unit": "bit/s"}]}, "component_overrides": {}
+    },
+    {
+      "id": "core-switch", "class": "network-switch", "adapter": "demo.static", "pretty_name": "Core Fabric", "comment": "10 GbE lab fabric", "enabled": true,
+      "location": "Lab rack", "room": "Lab", "groups": ["core-networking", "core-infrastructure"], "roles": ["switching"], "lifecycle": "active", "importance": "critical", "presentation_home": "network", "segment": "lab", "labels": {}, "endpoints": [{"host": "198.51.100.2"}], "credential_refs": {},
+      "config": {"observations": [{"metric": "uptime", "value": 7257600, "unit": "s"}, {"resource": "core-switch/port/1", "metric": "name", "value": "Gateway"}, {"resource": "core-switch/port/1", "metric": "link", "value": true}, {"resource": "core-switch/port/1", "metric": "line_rate", "value": 10000000000, "unit": "bit/s"}, {"resource": "core-switch/port/2", "metric": "name", "value": "Atlas"}, {"resource": "core-switch/port/2", "metric": "link", "value": true}, {"resource": "core-switch/port/2", "metric": "line_rate", "value": 10000000000, "unit": "bit/s"}, {"resource": "core-switch/port/3", "metric": "name", "value": "Orion"}, {"resource": "core-switch/port/3", "metric": "link", "value": true}, {"resource": "core-switch/port/3", "metric": "line_rate", "value": 10000000000, "unit": "bit/s"}, {"resource": "core-switch/port/4", "metric": "name", "value": "Workshop"}, {"resource": "core-switch/port/4", "metric": "link", "value": false}, {"resource": "core-switch/port/4", "metric": "line_rate", "value": 2500000000, "unit": "bit/s"}]}, "component_overrides": {}
+    },
+    {
+      "id": "light-entry", "class": "light", "adapter": "demo.static", "pretty_name": "Entry Pendant", "comment": "Dimmable entry light", "enabled": true,
+      "location": "Main floor", "room": "Entry", "groups": ["lighting"], "roles": ["illumination"], "lifecycle": "active", "importance": "normal", "presentation_home": "lighting", "segment": "home", "labels": {}, "endpoints": [{"host": "192.0.2.51"}], "credential_refs": {}, "config": {"observations": [{"metric": "power", "value": true}, {"metric": "brightness", "value": 68, "unit": "%"}]}, "component_overrides": {}
+    },
+    {
+      "id": "light-studio", "class": "light", "adapter": "demo.static", "pretty_name": "Studio Wash", "comment": "Dimmable studio light", "enabled": true,
+      "location": "Main floor", "room": "Studio", "groups": ["lighting"], "roles": ["illumination"], "lifecycle": "active", "importance": "normal", "presentation_home": "lighting", "segment": "home", "labels": {}, "endpoints": [{"host": "192.0.2.52"}], "credential_refs": {}, "config": {"observations": [{"metric": "power", "value": true}, {"metric": "brightness", "value": 42, "unit": "%"}]}, "component_overrides": {}
+    },
+    {
+      "id": "orion", "class": "compute-node", "adapter": "demo.static", "pretty_name": "Orion", "comment": "Primary compute node", "enabled": true,
+      "location": "Lab rack", "room": "Lab", "groups": ["servers"], "roles": ["compute"], "lifecycle": "active", "importance": "important", "presentation_home": "compute", "parent": "atlas", "segment": "lab", "labels": {}, "endpoints": [{"host": "198.51.100.11"}], "credential_refs": {}, "config": {"observations": [{"metric": "uptime", "value": 432000, "unit": "s"}, {"metric": "cpu_fraction", "value": 0.63, "unit": "ratio"}, {"metric": "memory_used", "value": 34359738368, "unit": "B"}]}, "component_overrides": {}
+    },
+    {
+      "id": "research-vm", "class": "vm", "adapter": "demo.static", "pretty_name": "Research VM", "comment": "Synthetic service guest", "enabled": true,
+      "location": "Atlas", "room": "Lab", "groups": ["virtual-machines"], "roles": ["service-host"], "lifecycle": "active", "importance": "normal", "presentation_home": "compute", "parent": "atlas", "segment": "lab", "labels": {}, "endpoints": [{"host": "198.51.100.20"}], "credential_refs": {}, "config": {"observations": [{"metric": "uptime", "value": 172800, "unit": "s"}, {"metric": "cpu_fraction", "value": 0.18, "unit": "ratio"}]}, "component_overrides": {}
+    },
+    {
+      "id": "site-sun", "class": "site-ephemeris", "adapter": "site.ephemeris", "pretty_name": "Solar Clock", "comment": "Local solar ephemeris for the fictional demo site", "enabled": true,
+      "location": "Fictional demo site", "room": "", "groups": ["core-habitat"], "roles": ["daylight"], "lifecycle": "active", "importance": "normal", "presentation_home": "habitat", "segment": "home", "labels": {}, "endpoints": [], "credential_refs": {}, "config": {"latitude": 45.0, "longitude": -122.0, "address": "Aurora House · fictional demo"}, "component_overrides": {}
+    },
+    {
+      "id": "solar", "class": "solar-gateway", "adapter": "demo.static", "pretty_name": "Solar Array", "comment": "Synthetic rooftop production", "enabled": true,
+      "location": "Roof", "room": "Exterior", "groups": ["core-power", "energy"], "roles": ["solar"], "lifecycle": "active", "importance": "critical", "presentation_home": "energy", "segment": "home", "labels": {}, "endpoints": [{"host": "192.0.2.21"}], "credential_refs": {},
+      "config": {"observations": [{"metric": "production_power", "value": 4820, "unit": "W"}, {"metric": "consumption_power", "value": 2180, "unit": "W"}, {"metric": "active_inverters", "value": 18}, {"metric": "lifetime_energy", "value": 29400000, "unit": "Wh"}]}, "component_overrides": {}
+    },
+    {
+      "id": "ups-lab", "class": "ups", "adapter": "demo.static", "pretty_name": "Lab UPS", "comment": "Protected power for the core rack", "enabled": true,
+      "location": "Lab rack", "room": "Lab", "groups": ["core-infrastructure", "core-power"], "roles": ["protected-power"], "lifecycle": "active", "importance": "critical", "presentation_home": "energy", "segment": "lab", "labels": {}, "endpoints": [{"host": "198.51.100.10"}], "credential_refs": {},
+      "config": {"observations": [{"metric": "status", "value": "OL"}, {"metric": "battery_charge", "value": 100, "unit": "%"}, {"metric": "battery_runtime", "value": 48, "unit": "min"}, {"metric": "load", "value": 36, "unit": "%"}, {"metric": "input_voltage", "value": 121, "unit": "V"}, {"metric": "output_voltage", "value": 120, "unit": "V"}]}, "component_overrides": {}
+    },
+    {
+      "id": "vintage-terminal", "class": "physical-computer", "adapter": "demo.static", "pretty_name": "Vintage Terminal", "comment": "Expected-offline lab system", "enabled": true,
+      "location": "Workbench", "room": "Lab", "groups": ["lab-systems"], "roles": ["historical-computing"], "lifecycle": "expected-offline", "importance": "accessory", "presentation_home": "compute", "segment": "lab", "labels": {}, "endpoints": [{"host": "198.51.100.30"}], "credential_refs": {}, "config": {"health": "unreachable"}, "component_overrides": {}
+    },
+    {
+      "id": "workshop-printer", "class": "3d-printer", "adapter": "demo.static", "pretty_name": "Workshop Printer", "comment": "Accessory device shown in Habitat", "enabled": true,
+      "location": "Workshop", "room": "Workshop", "groups": ["accessories"], "roles": ["fabrication"], "lifecycle": "active", "importance": "accessory", "presentation_home": "habitat", "segment": "home", "labels": {}, "endpoints": [{"host": "192.0.2.70"}], "credential_refs": {}, "config": {}, "component_overrides": {}
+    }
+  ],
+  "relationships": [
+    {"id": "gateway-fabric", "kind": "network-link", "source": "core-router", "target": "core-switch", "source_port": "lan", "target_port": "1", "label": "10 GbE", "capacity_bps": 10000000000},
+    {"id": "fabric-atlas", "kind": "network-link", "source": "core-switch", "target": "atlas", "source_port": "2", "target_port": "en0", "label": "10 GbE", "capacity_bps": 10000000000},
+    {"id": "fabric-orion", "kind": "network-link", "source": "core-switch", "target": "orion", "source_port": "3", "target_port": "en0", "label": "10 GbE", "capacity_bps": 10000000000}
+  ],
+  "pins": [
+    {"resource": "atlas", "order": 0},
+    {"resource": "workshop-printer", "order": 1}
+  ]
+}

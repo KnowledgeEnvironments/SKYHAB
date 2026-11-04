@@ -1,0 +1,24 @@
+# skyHAB Project <src@lispm.net>
+# Copyright (c) 2026 I. Finder
+# SPDX-License-Identifier: MIT
+
+platform :ios, '17.0'
+
+target 'skyHAB' do
+  use_frameworks!
+  # 3.7.3 repeatedly selects 0.0.0.0 as the RTSP source address on iOS
+  # WireGuard routes, causing multi-second frame stalls. 3.3.16.3 predates
+  # that libVLC regression; keep this pin until the upstream fix is released.
+  pod 'MobileVLCKit', '3.3.16.3'
+end
+
+# MobileVLCKit 3.3.16.3 declares an ancient deployment target (8.4) that modern
+# Xcode toolchains refuse outright. Raise it without touching the pinned pod
+# version; the app itself targets iOS 17.
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '17.0'
+    end
+  end
+end
